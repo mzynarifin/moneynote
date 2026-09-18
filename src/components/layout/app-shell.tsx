@@ -3,9 +3,10 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowDownRight, ArrowUpRight, Wallet } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, LogOut, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useUi } from "@/store/ui-context";
+import { signOutAction } from "@/actions/auth";
 
 export default function AppShell({ children }: { children: ReactNode }) {
   const { setOpen } = useUi();
@@ -40,6 +41,9 @@ export default function AppShell({ children }: { children: ReactNode }) {
               <ArrowDownRight className="h-4 w-4" />
               <span className="sm:hidden">Catat</span>
               <span className="hidden sm:inline">Catat Pengeluaran</span>
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => signOutAction()} aria-label="Keluar">
+              <LogOut className="h-4 w-4" />
             </Button>
           </div>
         </div>

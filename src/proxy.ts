@@ -1,5 +1,7 @@
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/middleware";
+
+const PROTECTED_PATHS = ["/dashboard", "/transactions"];
 
 export async function proxy(request: NextRequest) {
   const { supabase, supabaseResponse } = await createClient(request);
@@ -8,8 +10,18 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    await supabase.auth.signInAnonymously();
+  const pathname = request.nextUrl.pathname;
+  const isProtected =
+    pathname === "/" ||
+    PROTECTED_PATHS.some(
+      (path) => pathname === path || pathname.startsWith(path + "/")
+    );
+
+  // Anonymous user → send to /login
+  if (!user && isProtected) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
   }
 
   return supabaseResponse;

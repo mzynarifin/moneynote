@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import AppShell from "@/components/layout/app-shell";
@@ -7,7 +8,6 @@ import { RecentTransactions } from "@/components/dashboard/recent-transactions";
 import { InitialBalanceOnboarding } from "@/components/dashboard/initial-balance-onboarding";
 import { WeeklyChartCard } from "@/components/dashboard/weekly-chart-card";
 import { MobileActions } from "@/components/dashboard/mobile-actions";
-import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/lib/supabase/server";
 import { getDashboardData } from "@/lib/queries/dashboard";
 import { addWeeks, buildWeek, parseISO, weekLabel } from "@/lib/format";
@@ -28,14 +28,7 @@ export default async function DashboardPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  if (!user) {
-    return (
-      <AppShell>
-        <DashboardSkeleton />
-      </AppShell>
-    );
-  }
+  if (!user) redirect("/login");
 
   const anchor =
     sp.week && /^\d{4}-\d{2}-\d{2}$/.test(sp.week) ? sp.week : buildWeek(new Date()).start;
@@ -136,23 +129,5 @@ export default async function DashboardPage({
         </div>
       )}
     </AppShell>
-  );
-}
-
-function DashboardSkeleton() {
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <Skeleton className="h-8 w-48" />
-        <Skeleton className="h-9 w-40" />
-      </div>
-      <Skeleton className="h-44 w-full rounded-2xl" />
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <Skeleton className="h-24" />
-        <Skeleton className="h-24" />
-        <Skeleton className="h-24" />
-      </div>
-      <Skeleton className="h-72 w-full rounded-xl" />
-    </div>
   );
 }

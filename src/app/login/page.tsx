@@ -1,7 +1,6 @@
 "use client";
 
 import { useActionState } from "react";
-import Link from "next/link";
 import { Wallet } from "lucide-react";
 import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
@@ -64,13 +63,6 @@ export default function LoginPage() {
             </Button>
           </form>
         </div>
-
-        <p className="mt-6 text-center text-sm text-muted">
-          Belum punya akun?{" "}
-          <Link href="/register" className="font-medium text-primary hover:underline">
-            Daftar
-          </Link>
-        </p>
       </div>
     </main>
   );

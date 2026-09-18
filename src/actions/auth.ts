@@ -80,23 +80,3 @@ export async function signOutAction(): Promise<ActionResult> {
   revalidatePath("/", "layout");
   redirect("/login");
 }
-
-export async function signInAnonAction(): Promise<ActionResult> {
-  const supabase = await createClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  if (session) return { success: true };
-
-  const { error } = await supabase.auth.signInAnonymously();
-  if (error) {
-    return {
-      success: false,
-      message: "Anonymous sign-in tidak tersedia. Aktifkan di Supabase → Authentication → Sign In / Providers → Anonymous.",
-    };
-  }
-
-  revalidatePath("/", "layout");
-  return { success: true };
-}
