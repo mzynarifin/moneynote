@@ -61,7 +61,7 @@ export function MoneyInput({
           onChange={handleChange}
           placeholder="0"
           aria-invalid={Boolean(error)}
-          className="h-11 w-full rounded-lg border border-border bg-surface pl-9 pr-3 text-sm text-foreground placeholder:text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/25"
+          className="h-11 w-full rounded-lg border border-border bg-surface pl-9 pr-3 text-base text-foreground placeholder:text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/25"
         />
       </div>
       {hint ? <p className="mt-1.5 text-xs text-muted">{hint}</p> : null}
