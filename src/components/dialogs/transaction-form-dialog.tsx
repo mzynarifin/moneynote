@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Modal } from "@/components/ui/modal";
 import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,7 @@ export function TransactionFormDialog({
   editing,
 }: TransactionFormDialogProps) {
   const { show } = useToast();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
   const isExpense = mode === "expense";
@@ -104,6 +106,7 @@ export function TransactionFormDialog({
         show("success", "Uang berhasil ditambahkan.");
       }
       onClose();
+      router.refresh();
     });
   }
 

@@ -229,7 +229,7 @@ export function TransactionsClient({ initial, initialParams }: TransactionsClien
       )}
 
       <TransactionFormDialog open={Boolean(editing)} onClose={() => setEditing(null)} mode={editing?.type ?? "expense"} editing={editing} />
-      <DeleteTransactionDialog open={Boolean(deleting)} onClose={() => setDeleting(null)} transaction={deleting} />
+      <DeleteTransactionDialog open={Boolean(deleting)} onClose={() => setDeleting(null)} transaction={deleting} onDeleted={() => router.refresh()} />
     </div>
   );
 }

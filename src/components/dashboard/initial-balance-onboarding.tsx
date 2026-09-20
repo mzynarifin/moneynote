@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Wallet } from "lucide-react";
 import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { todayISO } from "@/lib/format";
 
 export function InitialBalanceOnboarding() {
   const { show } = useToast();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState(todayISO());
@@ -33,6 +35,7 @@ export function InitialBalanceOnboarding() {
         return;
       }
       show("success", "Saldo awal berhasil disimpan.");
+      router.refresh();
     });
   }
 
