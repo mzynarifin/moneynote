@@ -8,6 +8,7 @@ import { RecentTransactions } from "@/components/dashboard/recent-transactions";
 import { InitialBalanceOnboarding } from "@/components/dashboard/initial-balance-onboarding";
 import { WeeklyChartCard } from "@/components/dashboard/weekly-chart-card";
 import { MobileActions } from "@/components/dashboard/mobile-actions";
+import { ExportReportDialog } from "@/components/transactions/export-report-dialog";
 import { createClient } from "@/lib/supabase/server";
 import { getDashboardData } from "@/lib/queries/dashboard";
 import { addWeeks, buildWeek, parseISO, weekLabel } from "@/lib/format";
@@ -117,12 +118,15 @@ export default async function DashboardPage({
           <div>
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-ink">Transaksi Terbaru</h2>
-              <Link
-                href="/transactions"
-                className="text-sm font-medium text-primary hover:underline"
-              >
-                Lihat Semua
-              </Link>
+              <div className="flex items-center gap-2">
+                <ExportReportDialog />
+                <Link
+                  href="/transactions"
+                  className="text-sm font-medium text-primary hover:underline"
+                >
+                  Lihat Semua
+                </Link>
+              </div>
             </div>
             <RecentTransactions transactions={data?.recentTransactions ?? []} />
           </div>
