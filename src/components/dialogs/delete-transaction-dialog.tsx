@@ -11,12 +11,14 @@ interface DeleteTransactionDialogProps {
   open: boolean;
   onClose: () => void;
   transaction: Transaction | null;
+  onDeleted?: () => void;
 }
 
 export function DeleteTransactionDialog({
   open,
   onClose,
   transaction,
+  onDeleted,
 }: DeleteTransactionDialogProps) {
   const { show } = useToast();
   const [isPending, startTransition] = useTransition();
@@ -32,6 +34,7 @@ export function DeleteTransactionDialog({
       }
       show("success", "Transaksi berhasil dihapus.");
       onClose();
+      onDeleted?.();
     });
   }
 

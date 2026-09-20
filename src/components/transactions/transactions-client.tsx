@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { TransactionFormDialog } from "@/components/dialogs/transaction-form-dialog";
 import { DeleteTransactionDialog } from "@/components/dialogs/delete-transaction-dialog";
+import { ExportReportDialog } from "@/components/transactions/export-report-dialog";
 import { formatCurrency, formatShortDate } from "@/lib/format";
 import { buildTransactionsHref } from "@/lib/query-params";
 import type { FilterType, Transaction, TransactionListResponse } from "@/lib/types";
@@ -82,11 +83,14 @@ export function TransactionsClient({ initial, initialParams }: TransactionsClien
 
   return (
     <div className="space-y-5">
-      <div>
-        <h1 className="text-xl font-bold tracking-tight text-ink sm:text-2xl">
-          Riwayat Transaksi
-        </h1>
-        <p className="text-sm text-muted">Lihat seluruh uang masuk dan pengeluaranmu.</p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-xl font-bold tracking-tight text-ink sm:text-2xl">
+            Riwayat Transaksi
+          </h1>
+          <p className="text-sm text-muted">Lihat seluruh uang masuk dan pengeluaranmu.</p>
+        </div>
+        <ExportReportDialog />
       </div>
 
       <div className="space-y-3">
