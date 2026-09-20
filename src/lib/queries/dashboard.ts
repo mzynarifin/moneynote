@@ -49,7 +49,19 @@ export const getDashboardData = cache(
         .lte("transaction_date", weekEnd),
     ]);
 
-    if (all.error || !all.data) return null;
+    if (all.error || !all.data) {
+      return {
+        summary: {
+          currentBalance: 0,
+          totalIncome: 0,
+          totalExpense: 0,
+          weeklyExpense: 0,
+        },
+        recentTransactions: [],
+        weeklyExpenses: [],
+        hasTransactions: true,
+      };
+    }
 
     let totalIncome = 0;
     let totalExpense = 0;
@@ -83,6 +95,7 @@ export const getDashboardData = cache(
       },
       recentTransactions: (recentResult.data ?? []).slice(0, 6).map(mapRow),
       weeklyExpenses,
+      hasTransactions: (all.data?.length ?? 0) > 0,
     };
   }
 );

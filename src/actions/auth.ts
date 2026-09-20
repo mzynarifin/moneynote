@@ -28,6 +28,7 @@ export async function signInAction(input: {
   }
 
   revalidatePath("/", "layout");
+  revalidatePath("/dashboard");
   redirect("/dashboard");
 }
 

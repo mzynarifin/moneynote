@@ -46,7 +46,7 @@ export default async function DashboardPage({
     user.email?.split("@")[0] ||
     "Pengguna";
 
-  const hasTransactions = (data?.recentTransactions.length ?? 0) > 0;
+  const hasTransactions = data?.hasTransactions ?? true;
 
   const weeklyDates = new Map(data?.weeklyExpenses.map((d) => [d.date, d.total] as const) ?? []);
   const weeklyChartData = week.days.map((date) => ({

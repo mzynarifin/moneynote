@@ -29,6 +29,7 @@ export interface DashboardData {
   summary: DashboardSummary;
   recentTransactions: Transaction[];
   weeklyExpenses: { date: string; total: number }[];
+  hasTransactions: boolean;
 }
 
 export interface TransactionListResponse {
